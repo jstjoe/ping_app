@@ -1,3 +1,17 @@
 {{!-- check "service" for which tool to log in to --}}
 {{!-- store it in a data field (or class) on the button so the click event can detect it --}}
 
+<div class="login_form container-fluid">
+  <form class='form'>
+    <label>Email</label>
+    <input placeholder="email" type="text" class="username"></input>
+    <br><br>
+    <label>Password</label>
+    <input type='password' placeholder='password' class='password'></input><br>
+    {{!-- <a href="https://login.citrixonline.com/pwdrecovery/pwdrecovery?product=g2a" target="blank">Forgot your password?</a> --}}
+    <br>
+    <br>
+    <button class="btn btn-primary login-flowdock">Login</button>
+  </form>
+
+</div>
