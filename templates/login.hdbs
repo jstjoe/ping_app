@@ -1,0 +1,3 @@
+{{!-- check "service" for which tool to log in to --}}
+{{!-- store it in a data field (or class) on the button so the click event can detect it --}}
+
