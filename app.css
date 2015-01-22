@@ -1,0 +1,34 @@
+.service {
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+.ping_form {
+  padding-right: 0;
+  padding-left: 0;
+}
+.option {
+  width: 310px;
+  margin-bottom: 10px;
+}
+.message {
+  width: 310px;
+  height: 280px;
+  /*margin-bottom: 10px;*/
+}
+.include_url {
+  margin-bottom: 15px;
+}
+.tags {
+  width: 310px;
+  /*margin-bottom: 10px;*/
+}
+.include_id {
+  /*margin-bottom: 10px;*/
+}
+.ping_home {
+  margin-top: 10px;
+}
+.ping_submit {
+  margin-top: 10px;
+  margin-left: 10px;
+}

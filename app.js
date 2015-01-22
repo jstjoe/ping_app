@@ -5,12 +5,15 @@
     client_secret: 'ec8e6ec87b41634fead10918573447e1090ce07ff0336caf22fd5e8e01924b70',
     fdRoot: 'https://api.flowdock.com',
     events: {
-      'app.created':'start',
+      'app.created':            'start',
+
+      'click .ping_home':       'start',
 
       'click .login-flowdock':  'loginFlowdock',
       // 'loginFlowdock.done':     'loggedinFlowdock',
       'loadFlowdock.done':      'loadedFlowdock',
-      'postFlowdock.done':      'flowdockPosted',
+      'click button.flowdock':  'postFlowdock',
+      // 'postFlowdock.done':      'postedFlowdock',
 
       'loadHall.done':          'hallLoaded',
       'postToHall.done':        'hallPosted',
@@ -25,41 +28,49 @@
       // ### Flowdock
       loginFlowdock:    function(creds) {
         console.log(creds);
-        var token = btoa(creds.username + ":" + creds.password),
-            data = JSON.stringify({
-              "client_id": this.client_id,
-              "client_secret": this.client_secret,
-              "grant_type": "password",
-              "scope": "flow private",
-              "username": creds.username,
-              "password": creds.password
-            });
+        var data = JSON.stringify({
+          "client_id": this.client_id,
+          "client_secret": this.client_secret,
+          "grant_type": "password",
+          "scope": "flow private",
+          "username": creds.username,
+          "password": creds.password
+        });
         return {
           url: this.fdRoot + '/oauth/token',
           type: 'POST',
           data: data,
-          headers: {"Authorization": "Basic " + token},
           dataType: 'JSON',
           contentType: 'application/JSON'
         };
       },
       loadFlowdock:     function(fd) {
-        // var fd = this.store('flowdock');
         return {
           url: this.fdRoot + '/flows',
           headers: {"Authorization": "Bearer " + fd.access_token}
         };
       },
-      postFlowdock:   function() {
-        var organization = '', // set this dynamically
-            flow = '', // set this dynamically
+      postFlowdock:   function(option, message, tags) {
+        var data = JSON.stringify({
+          "event": "message",
+          "content": message,
+          "tags":  tags
+        });
+        var fd = this.store('flowdock');
+        var organization = option.organization.name, // set this dynamically
+            flow = option.parameterized_name, // set this dynamically
             path = helpers.fmt('/flows/%@/%@/messages', organization, flow);
             // NOTE: look into using a Target (or just the app?) to create "Threads" when a ticket is created, then update it by external_thread_id when an agent has a comment
         return {
           url: this.fdRoot + path,
-          headers: {"Authorization": "Bearer " + token},
+          headers: {"Authorization": "Bearer " + fd.access_token},
+          type: 'POST',
+          data: data,
           dataType: 'JSON',
-          contentType: 'application/JSON'
+          contentType: 'application/JSON',
+          success: function(r) {
+            this.postedFlowdock(r, path, option);
+          }
         };
       },
       replyFlowdock: function() {
@@ -106,11 +117,10 @@
     // Framework event functions
     start:          function() {
 
+      // temporary until there is a button for it
       if(this.setting('flowdock') === true) {
         this.loadFlowdock();
       }
-
-      // TODO add other conditionals
 
     },
 
@@ -142,10 +152,40 @@
       });
     },
     loadedFlowdock: function(r) {
-      console.log(r);
+      this.service = "flowdock";
+      this.options = r;
+      this.switchTo('form', {
+        service: this.service,
+        options: r
+      });
     },
-    postFlowdock: function(r) {
+    postFlowdock: function(e) {
+      e.preventDefault();
+      var option = _.find(this.options, function(option) {
+        return this.$('.option').val() == option.id;
+      }, this);
+      // console.log(this.option);
+      var message = this.$('.message').val();
+      var tags = this.$('.tags').val().split(/\W/);
+
+      if ( this.$('.include_url').prop('checked') ) {
+        var url = helpers.fmt('\nhttps://%@.zendesk.com/agent/tickets/%@', this.currentAccount().subdomain(), this.ticket().id());
+        message += url;
+      }
+      if ( this.$('.include_id').prop('checked') ) {
+        var id = this.ticket().id();
+        tags.push(id.toString());
+      }
+      
+      this.ajax('postFlowdock', option, message, tags);
+    },
+    postedFlowdock: function(r, flowPath, option) {
+      // debugger;
       console.log(r);
+      console.log(option);
+      var url = helpers.fmt('%@/messages/%@', option.web_url, r.id);
+      services.notify(helpers.fmt('Pinged <a href="%@" target="blank">%@ in %@</a>', url, option.name, this.service));
+      
     },
 
     // Hall functions
