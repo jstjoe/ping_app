@@ -1,8 +1,9 @@
 {{!-- check "service" for which tool to log in to --}}
 {{!-- store it in a data field (or class) on the button so the click event can detect it --}}
-
+{{!-- <button class="btn logout pull-right">Logout</button> --}}
 <div class="ping_form container-fluid">
   <h4 class="service">{{service}}</h4>
+  
   <form class='form'>
     <label>
       <select class="option">

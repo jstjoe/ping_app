@@ -8,6 +8,7 @@
       'app.created':            'start',
 
       'click .ping_home':       'start',
+      'click .logout':          'logout',
 
       'click .login-flowdock':  'loginFlowdock',
       // 'loginFlowdock.done':     'loggedinFlowdock',
@@ -221,6 +222,12 @@
 
     },
 
+    // logout
+    logout: function(e) {
+      if(e) {e.preventDefault();}
+      this.store('flowdock', '');
+      this.start();
+    }
     // Helper functions
 
   };
