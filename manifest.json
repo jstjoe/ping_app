@@ -19,11 +19,13 @@
     },
     {
       "name": "flowdock_client_id",
+      "type": "text",
       "default":"d3460d081d3f4ecaba722b26634cd546f11ea2af51e8cb00d9f8a3674551f5fc",
       "secure": true
     },
     {
       "name": "flowdock_client_secret",
+      "type": "text",
       "default":"ec8e6ec87b41634fead10918573447e1090ce07ff0336caf22fd5e8e01924b70",
       "secure": true
     },
