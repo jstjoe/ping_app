@@ -7,7 +7,7 @@
     </a>
     <div class="media-body">
       <h5 class="media-heading">{{userObj.name}} (&#64;{{userObj.nick}})</h5>
-      {{content.text}}
+      {{content}}
     </div>
   </li>
   <br>

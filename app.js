@@ -39,19 +39,21 @@
     requests: {
       // ### Flowdock
       loginFlowdock: function(creds) {
+        var data = JSON.stringify({
+          client_id: this.client_id,
+          client_secret: this.client_secret,
+          grant_type: 'password',
+          scope: 'flow private',
+          username: creds.username,
+          password: creds.password
+        });
+        console.log(data);
         return {
           url: this.fdRoot + '/oauth/token',
           type: 'POST',
-          data: JSON.stringify({
-            "client_id": this.client_id,
-            "client_secret": this.client_secret,
-            "grant_type": "password",
-            "scope": "flow private",
-            "username": creds.username,
-            "password": creds.password
-          }),
-          dataType: 'JSON',
-          contentType: 'application/JSON'
+          data: data,
+          dataType: 'json',
+          contentType: 'application/json'
         };
       },
       loadFlowdock:     function(fd) {
@@ -231,14 +233,14 @@
       services.notify(helpers.fmt('Pinged <a href="%@" target="blank">%@ in %@</a>', this.url, option.name, this.service));
 
       this.messages = [];
-      this.listenFlowdock(r.flow, r.id, option);
+      this.listenFlowdock(r.flow, r.thread_id, r.id, option);
       this.switchTo('reply', {
         service: 'flowdock',
         url: this.url,
         message: r
       });
     },
-    listenFlowdock: function(flow, messageId, option) {
+    listenFlowdock: function(flow, thread_id, messageId, option) {
       this.flow = flow;
       this.thread = messageId;
       this.option = option;
@@ -247,12 +249,12 @@
       this.stream.onmessage = function(event) {
         var message = JSON.parse(event.data);
         console.dir(message);
-        var influxTags = _.find(message.tags, function(tag) {
-          return tag.match('influx:' + messageId) !== null;
-        });
-        if(influxTags) {
+        // var influxTags = _.find(message.tags, function(tag) {
+        //   return tag.match('influx:' + messageId) !== null;
+        // });
+        if(message.thread_id == thread_id) {
           console.log("response to your message!");
-          console.log(message.content.text);
+          console.log(message.content);
           this.receivedResponseFlowdock(message);
         }
         // handle message
