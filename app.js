@@ -26,13 +26,10 @@
       },
 
       'app.willDestroy': 'close',
-
       'loadHall.done':          'hallLoaded',
       'postToHall.done':        'hallPosted',
-
       'loadSlack.done':         'slackLoaded',
       'postToSlack.done':       'slackPosted',
-
       'loadHipChat.done':       'hipChatLoaded',
       'postToHipChat.done':     'hipChatPosted'
     },
@@ -47,7 +44,7 @@
           username: creds.username,
           password: creds.password
         });
-        console.log(data);
+        // console.log(data);
         return {
           url: this.fdRoot + '/oauth/token',
           type: 'POST',
@@ -113,42 +110,7 @@
           url: this.fdRoot + path,
           headers: {"Authorization": "Bearer " + fd.access_token},
         };
-      },
-      // ### Hall
-      loadHall:     function(url) {
-        return {
-
-        };
-      },
-      postToHall:       function() {
-        return {
-
-        };
-      },
-
-      // ### Slack
-      loadSlack: function(url) {
-        return {
-
-        };
-      },
-      postToSlack:      function() {
-        return {
-
-        };
-      },
-
-      // ### Hipchat
-      loadHipChat:  function(url) {
-        return {
-
-        };
-      },
-      postToHipchat:    function() {
-        return {
-
-        };
-      },
+      }
 
     },
 
@@ -165,6 +127,7 @@
       this.switchTo('home', {
         flowdock: this.setting('flowdock')
       });
+      this.loadFlowdock();
 
     },
 
