@@ -1,0 +1,15 @@
+<ul class="media-list well well-small replies">
+{{#each messages}}
+  <li data-fd-message-id="{{id}}" class="media">
+    {{!-- TODO process the array and add a flag when the commenter is current user, then add conditional to pull right --}}
+    <a class="pull-left" href="#">
+      <img class="media-object" height="34" width="34" src="{{userObj.avatar}}">
+    </a>
+    <div class="media-body">
+      <h5 class="media-heading">{{userObj.name}} (&#64;{{userObj.nick}})</h5>
+      {{content}}
+    </div>
+  </li>
+  <br>
+{{/each}}
+</ul>

@@ -1,0 +1,13 @@
+<header>
+  {{!-- <span class="logo"/> --}}
+  <h3>{{setting "name"}} 
+    <button class="btn logout pull-right">Logout</button><button class="btn ping_home pull-right">Home</button>
+  </h3>
+
+</header>
+<section data-main/>
+{{!-- <footer>
+  <a href="mailto:{{author.email}}">
+    {{author.name}}
+  </a>
+</footer> --}}

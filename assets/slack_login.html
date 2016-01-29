@@ -1,0 +1,21 @@
+<!-- create pop-up window to slack oauth page -->
+<!-- on redirect capture the query string parameters from spawned window -->
+<!-- pass params to app through iframe -->
+<!-- PROFIT -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
+<script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/latest/zaf_sdk.js"></script>
+<script type="text/javascript">
+  var app = window.ZAFClient.init(function(context) {
+    var currentUser = context.currentUser;
+    var popup = window.open('https://slack.com/oauth/authorize?client_id=4955417856.19411014454&scope=client&redirect_uri=https://successapps.zendesk.com/api/v2/apps/79184/assets/slack_redirect.html');
+    console.dir(popup);
+    app.postMessage('loginLoaded', {window: 'something'});
+    // event handlers
+    $(popup).load(function() {
+      console.log('popup window loaded');
+      console.dir(window.location);
+    });
+  });
+
+
+</script>

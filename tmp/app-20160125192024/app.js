@@ -12,8 +12,6 @@
       'click .ping_home':       'start',
       'click .logout':          'logout',
 
-      'iframe.loginLoaded': 'onSlackLoginLoaded',
-
       'click .launch_flowdock': 'loadFlowdock',
 
       'click .login-flowdock':  'loginFlowdock',
@@ -131,11 +129,6 @@
       });
       this.loadFlowdock();
 
-    },
-    onSlackLoginLoaded: function(e, data) {
-      // the iframe passed back the window as "data"
-      console.log('got this window object back in the app');
-      console.dir(data);
     },
 
     // Flowdock functions

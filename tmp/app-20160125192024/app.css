@@ -1,0 +1,49 @@
+.service {
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+.ping_form {
+  padding-right: 0;
+  padding-left: 0;
+}
+.option {
+  width: 310px;
+  margin-bottom: 10px;
+}
+.message {
+  width: 310px;
+  min-height: 60px;
+  max-height: 200px;
+  /*margin-bottom: 10px;*/
+}
+.reply {
+  width: 310px;
+  min-height: 40px;
+  max-height: 200px;
+}
+.include_url {
+  margin-bottom: 15px;
+}
+.tags {
+  width: 310px;
+  /*margin-bottom: 10px;*/
+}
+.include_id {
+  /*margin-bottom: 10px;*/
+}
+/*.ping_home {
+  margin-top: 10px;
+}*/
+.ping_submit, .ping_reply {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.replies {
+  margin-left: 0;
+}
+.media-object {
+  margin-right: 3px;
+}
+.thread_subject {
+  overflow-wrap: break-word;
+}

@@ -1,0 +1,3 @@
+{{#if flowdock}}
+  <button class="btn launch_flowdock">Flowdock</button>
+{{/if}}

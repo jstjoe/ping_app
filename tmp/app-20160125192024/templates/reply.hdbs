@@ -1,0 +1,25 @@
+{{!-- check "service" for which tool to log in to --}}
+{{!-- store it in a data field (or class) on the button so the click event can detect it --}}
+{{!-- <button class="btn logout pull-right">Logout</button> --}}
+<div class="ping_form container-fluid">
+  <h4 class="service"><a href="{{url}}" target="blank">{{service}}</a></h4>
+  <div>
+    {{!-- TODO process the array and add a flag when the commenter is current user, then add conditional to pull right --}}
+    <div class="media-body">
+      <h4 class="media-heading thread_subject">{{message.content}}</h4>
+      
+    </div>
+  </div>
+  <br>
+  <div class="replies_{{service}}">
+    
+
+    {{!-- insert li items here with each message --}}
+  </div>
+  <form class='form reply'>
+    <label>
+      <textarea class="reply reply_{{service}}" placeholder="press enter to send"></textarea>
+    </label>
+  </form>
+
+</div>

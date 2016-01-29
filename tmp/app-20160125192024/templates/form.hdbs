@@ -1,0 +1,33 @@
+{{!-- check "service" for which tool to log in to --}}
+{{!-- store it in a data field (or class) on the button so the click event can detect it --}}
+{{!-- <button class="btn logout pull-right">Logout</button> --}}
+<div class="ping_form container-fluid">
+  <h4 class="service">{{service}}</h4>
+  
+  <form class='form'>
+    <label>
+      <select class="option">
+        {{#options}}
+        <option value="{{id}}">
+          {{name}}
+        </option>
+        {{/options}}
+      </select>
+    </label>
+    <label>Message
+      <textarea class="message"></textarea>
+    </label>
+    <label class="inline checkbox">
+      <input type="checkbox" class="include_url"></input> Include ticket URL?
+    </label>
+    <label>Tags
+      <input type="text" class="tags" placeholder="example_tag_1, exampleTag2 example3"></input>
+    </label>
+    <label class="inline checkbox">
+      <input type="checkbox" class="include_id"></input> Include #id tag?
+    </label>
+    <button class="btn btn-primary ping_submit pull-right ping_{{service}}" type="submit">Ping</button>
+    
+  </form>
+
+</div>

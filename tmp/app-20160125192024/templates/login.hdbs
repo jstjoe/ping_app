@@ -1,0 +1,4 @@
+{{!-- {{iframe 'https://slack.com/oauth/authorize'}} --}}
+<a href="https://slack.com/oauth/authorize?client_id={{setting 'slack_client_id'}}&redirect_uri=https%3A%2F%2Fsuccessapps.zendesk.com{{assetURL 'slack_login.html'}}&scope=client" class="btn login slack_login" target="blank">
+    Login
+</a>
